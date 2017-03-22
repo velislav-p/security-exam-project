@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Secure Login</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="style/style.css">
 </head>
+
 <body>
-  <input type="text" id="userName" placeholder="Username or Email here">
-  <input type="text" id="password" placeholder="Password here">
-  <button id="btnLogIn">Jack in!</button>
-  <button id="btnForgottenPassword">If you have forgotten your password click here</button>
-  <button id="btnRegister">To register a new account click here</button>
+    <div class="form-group">
+        <form class="input-form" action="xxx.php" method="post">
+            <input type="text" id="userName" class="form-control" placeholder="Username or Email here">
+            <input type="text" id="password" class="form-control" placeholder="Password here">
+            <button id="btnLogIn" class="btn btn-warning">Jack in!</button>
+            <button id="btnForgottenPassword" class="btn btn-warning">If you have forgotten your password click here</button>
+            <button id="btnRegister" class="btn btn-warning">To register a new account click here</button>
+        </form>
+    </div>
 </body>
+
 </html>
