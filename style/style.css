@@ -15,10 +15,8 @@ body {
   align-items: center;
   justify-content: center; }
 
-.input-form {
-  display:flex;
-  justify-content:center;
-  flex-direction:column;
-}
+a {
+  display: block;
+  margin-top: 8px; }
 
 /*# sourceMappingURL=style.css.map */
