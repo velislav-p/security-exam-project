@@ -7,7 +7,7 @@ $link = "http://v-peychev.dk/SecuritySemesterProject/views/passwordRecovery.php?
 $to      = $email;
 $subject = "testing password recovery";
 $message = 'Please follow the link to continue with password recovery.'."\r\n" .
-           $link;
+    $link;
 $headers = 'From: me@v-peychev.dk' . "\r\n" .
     'Reply-To: me@v-peychev.dk' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
