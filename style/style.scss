@@ -1,7 +1,25 @@
 $font-stack:    Helvetica, sans-serif;
-$primary-color: #333;
+$primary-color: #fff;
+$background-color: #455A64;
 
 body {
   font: 100% $font-stack;
   color: $primary-color;
+  background-color: $background-color;
+}
+
+.form-control {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.btn {
+  margin-top: 8px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
