@@ -11,6 +11,11 @@ Log IP of users who gets locked out.
 ---
 
 Velitjubang ---
+>>>22.03<<<
+*add labels to forms*
+*figure out secret key*
+*finalize the recovery process (redirect or confirmation window)*
+**sanitize user input**
 
 
 ---
