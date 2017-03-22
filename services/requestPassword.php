@@ -13,4 +13,6 @@ $headers = 'From: me@v-peychev.dk' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
 
 mail($to, $subject, $message, $headers);
+
+header("Location: http://v-peychev.dk/SecuritySemesterProject/views/emailSent.html");
 ?>
