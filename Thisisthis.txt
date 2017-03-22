@@ -1,0 +1,23 @@
+Notes 4 uz
+
+
+
+Michael --- 
+
+Look into reCAPTCHA, since (i believe everyone is going to use it.)
+Lock out user based on IP and or Browser.
+Log IP of users who gets locked out.
+
+---
+
+Velitjubang ---
+
+
+---
+
+Anders <3 ---
+
+
+
+---
+
