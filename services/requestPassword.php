@@ -3,6 +3,8 @@ $email = $_POST["email"];
 $key = "secretkey";
 $link = "http://v-peychev.dk/SecuritySemesterProject/views/passwordRecovery.php?key=".$key;
 
+//prepare statement to check the database for email address and create secret key that identifies the account;
+//if yes, send this email, else send an email saying the email is not associated to an account.
 
 $to      = $email;
 $subject = "testing password recovery";

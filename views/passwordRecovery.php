@@ -18,8 +18,9 @@ $key = $_GET["key"];
 
 <div id="wdw-password-recovery" class="form-group">
     <form method="post" class="input-form" action="../services/passwordRecovery.php">
-        <input type="text" class="form-control" name="username">
-        <input type="text" class="form-control" name="password">
+        <input type="text" class="form-control" name="username" placeholder="username">
+        <input type="text" class="form-control" name="password" placeholder="password">
+        <input type="text" class="form-control" name="passwordConfirm" placeholder="confirm passowrd">
         <input type="hidden" name="key" value="<?php echo $key ?>">
         <input type="submit" class="btn btn-warning" value="Recover password">
     </form>
