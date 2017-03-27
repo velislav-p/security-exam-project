@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 CREATE TABLE chatter_user (
+=======
+CREATE TABLE user (
+>>>>>>> Stashed changes
 
   ID int(20),
   Username varchar(20),
