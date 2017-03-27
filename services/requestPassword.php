@@ -1,4 +1,7 @@
 <?php
+
+require 'connection.php';
+
 $email = $_POST["email"];
 $key = "secretkey";
 $link = "http://v-peychev.dk/SecuritySemesterProject/views/passwordRecovery.php?key=".$key;

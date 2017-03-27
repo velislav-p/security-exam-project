@@ -1,6 +1,6 @@
 <?php
 
-// require 'connection.php'; or whatever
+require 'connection.php';
 
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])){
     $usernamePreEncode = $_POST['username'];
