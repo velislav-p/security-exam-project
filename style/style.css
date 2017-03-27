@@ -1,7 +1,14 @@
 body {
+  height: 100vh;
   font: 100% Helvetica, sans-serif;
   color: #fff;
-  background-color: #455A64; }
+  background-color: #455A64;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.form-group {
+  width: 200px; }
 
 .form-control {
   margin-top: 8px;
@@ -10,13 +17,16 @@ body {
 .btn {
   margin-top: 8px; }
 
-.form-group {
+.input-form {
   display: flex;
-  align-items: center;
-  justify-content: center; }
+  flex-direction: column;
+  align-items: center; }
+
+label {
+  display: inline; }
 
 a {
-  display: block;
+  display: inline;
   margin-top: 8px; }
 
 /*# sourceMappingURL=style.css.map */

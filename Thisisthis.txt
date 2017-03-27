@@ -15,6 +15,7 @@ Velitjubang ---
 *add labels to forms*
 *figure out secret key*
 *finalize the recovery process (redirect or confirmation window)*
+*fix the DAMN LABELS AND LINKS*
 **sanitize user input**
 
 

@@ -1,13 +1,21 @@
 $font-stack:    Helvetica, sans-serif;
 $primary-color: #fff;
 $background-color: #455A64;
+$highlight-color: #f0ad4e;
 
 body {
+  height:100vh;
   font: 100% $font-stack;
   color: $primary-color;
   background-color: $background-color;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
-
+.form-group
+{
+  width:200px;
+}
 .form-control {
   margin-top: 8px;
   width: 100%;
@@ -17,13 +25,15 @@ body {
   margin-top: 8px;
 }
 
-.form-group {
+.input-form {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction:column;
+  align-items:center;
 }
-
+label {
+  display:inline;
+}
 a {
-  display: block;
+  display:inline;
   margin-top: 8px; 
 }
