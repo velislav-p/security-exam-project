@@ -1,13 +1,8 @@
-<<<<<<< Updated upstream
 CREATE TABLE chatter_user (
-=======
-CREATE TABLE user (
->>>>>>> Stashed changes
-
-  ID int(20),
+  ID int NOT NULL AUTO_INCREMENT,
   Username varchar(20),
   Email varchar(20),
   Password varchar(20),
   PRIMARY KEY (ID)
 
-);
+

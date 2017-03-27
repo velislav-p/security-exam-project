@@ -1,26 +1,25 @@
 <?php
 
-require 'connection.php';
+require ("connection.php");
+include("../variables.php");
 
 $email = $_GET["email"];
-
 
 $stmt = $connection -> prepare("SELECT * FROM chatter_user WHERE email = :email");
 $stmt -> bindValue(":email", $email);
 $stmt->execute();
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$secret_key = md5($row["ID"]);
-$string = $row["Username"];
-
+$secretKey = md5($row["ID"]);
+$stringToEncrypt = $row["Password"];
+$stringSeparator = "userID";
 $iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND);
-$encrypted_string = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $secret_key, $string, MCRYPT_MODE_CBC, $iv);
-$encrypted_string_base64 = base64_encode($encrypted_string."fuckyou".$iv);
+$encrypted_string = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $secretKey, $stringToEncrypt, MCRYPT_MODE_CBC, $iv);
+$encoded_string_base64 = base64_encode($encrypted_string.$stringSeparator.$iv);
 
+$link = "../views/emailSent.php?user=".$encoded_string_base64;
 
-$link = "../views/emailSent.php?user=".$encrypted_string_base64;
-
-echo $encrypted_string_base64;
+echo $link;
 $to      = $email;
 $subject = "testing password recovery";
 $message = 'Please follow the link to continue with password recovery.'."\r\n" .
@@ -31,5 +30,5 @@ $headers = 'From: me@v-peychev.dk' . "\r\n" .
 
 mail($to, $subject, $message, $headers);
 
-//header("Location: ../views/emailSent.php");
+header("Location: ../views/emailSent.php");
 ?>

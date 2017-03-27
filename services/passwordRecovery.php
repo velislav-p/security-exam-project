@@ -1,5 +1,6 @@
 <?php
 require 'connection.php';
+include("../variables.php");
 //$username = $_POST["username"];
 //$password = $_POST["password"];
 //$passwordConfirm = $_POST["passwordConfirm"];
