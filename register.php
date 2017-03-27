@@ -18,9 +18,9 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
 
     session_start();
 
-    $_SESSION["username"] = $username
+    $_SESSION["username"] = $username;
 }
 
-header("profile.html");
+header("profile.php");
 
 ?>
