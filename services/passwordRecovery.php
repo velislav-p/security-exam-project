@@ -11,5 +11,4 @@ $key = $_POST["key"];
 // prepare statement for checking if username and key match the database
 
 
-
 header("Location: http://localhost/SecurityProject/security-exam-project/views/passwordChanged.php");

@@ -1,7 +1,7 @@
 <?php
 
 require 'connection.php';
-
+//asdadasd
 
 $email = $_POST["email"];
 $key = "secretkey";
