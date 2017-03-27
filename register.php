@@ -7,7 +7,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
     $email = $_POST['email'];
     $passwordPreHash = $_POST['password'];
 
-    $username = sha1($usernamePreEncode);
+    $username = base64_encode($usernamePreEncode);
     $password = password_hash($passwordPreHash, PASSWORD_DEFAULT);
 
     $stmt = $connection -> prepare("INSERT INTO chatter_user(username, password, email) VALUES(:username, :password, :email)");
@@ -16,8 +16,11 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
     $stmt -> bindValue(":email",$email);
     $stmt -> execute();
 
+    session_start();
+
+    $_SESSION["username"] = $username
 }
 
-header("index.html");
+header("profile.html");
 
 ?>
