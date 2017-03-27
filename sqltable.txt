@@ -1,0 +1,9 @@
+CREATE TABLE table_name (
+
+  ID int(20),
+  Username varchar(20),
+  Email varchar(20),
+  Password varchar(20),
+  PRIMARY KEY (ID)
+
+);
