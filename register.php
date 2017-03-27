@@ -10,7 +10,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
     $username = sha1($usernamePreEncode);
     $password = password_hash($passwordPreHash, PASSWORD_DEFAULT);
 
-    $stmt = $connection -> prepare("INSERT INTO users(username, password, email) VALUES(:username, :password, :email)");
+    $stmt = $connection -> prepare("INSERT INTO chatter_user(username, password, email) VALUES(:username, :password, :email)");
     $stmt -> bindValue(":username",$username);
     $stmt -> bindValue(":password",$password);
     $stmt -> bindValue(":email",$email);

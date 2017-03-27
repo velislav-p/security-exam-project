@@ -7,7 +7,7 @@ $email = $_POST["email"];
 $key = "secretkey";
 $link = 'example';
 
-$stmt = $db -> prepare("SELECT * FROM user WHERE username = :username");
+$stmt = $db -> prepare("SELECT * FROM chatter_user WHERE username = :username");
 $stmt -> bindValue(":username",$username);
 $stmt->execute();
 $rows = $stmt->fetch(PDO::FETCH_ASSOC);
