@@ -1,6 +1,6 @@
 <?php
 
-require 'connection.php';
+require 'services/connection.php';
 
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])){
     $usernamePreEncode = $_POST['username'];
@@ -17,5 +17,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
     $stmt -> execute();
 
 }
+
+header("index.html");
 
 ?>
