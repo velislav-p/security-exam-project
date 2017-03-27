@@ -1,6 +1,6 @@
 .idea
 '.idea'
 <<<<<<< Updated upstream
-.connection.php
+./services/connection.php
 =======
 >>>>>>> Stashed changes
