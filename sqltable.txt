@@ -4,5 +4,4 @@ CREATE TABLE chatter_user (
   Email varchar(20),
   Password varchar(20),
   PRIMARY KEY (ID)
-
-
+)
