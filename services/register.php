@@ -1,9 +1,6 @@
 <?php
 
-<<<<<<< HEAD
 // connection to the server
-=======
->>>>>>> origin/master
 require 'connection.php';
 
 //Check if session is set
@@ -50,7 +47,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
 
     $_SESSION["username"] = $username;
 
-    header("../views/profile.php");
+    header("Location: ../views/profile.php");
 }
 
 header("profile.php");
