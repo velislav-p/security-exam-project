@@ -2,6 +2,6 @@ CREATE TABLE chatter_user (
   ID int NOT NULL AUTO_INCREMENT,
   Username varchar(20),
   Email varchar(20),
-  Password varchar(20),
+  Password varchar(32),
   PRIMARY KEY (ID)
 )

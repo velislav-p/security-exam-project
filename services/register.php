@@ -1,6 +1,7 @@
 <?php
 
-require 'services/connection.php';
+// connection to the server
+require 'connection.php';
 
 //Check if session is set
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])){
@@ -30,9 +31,12 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
         header("../views/register.html");
     }
 
+    // Encode username
     $username = base64_encode($usernamePreEncode);
-    $password = password_hash($passwordPreHash, PASSWORD_DEFAULT);
+    // Hash password
+    $password = md5($passwordPreHash);
 
+    // Prepare and execute sql statement
     $stmt = $connection -> prepare("INSERT INTO chatter_user(username, password, email) VALUES(:username, :password, :email)");
     $stmt -> bindValue(":username",$username);
     $stmt -> bindValue(":password",$password);
@@ -42,6 +46,8 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
     session_start();
 
     $_SESSION["username"] = $username;
+
+    header("../views/profile.php");
 }
 
 header("profile.php");
