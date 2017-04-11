@@ -19,13 +19,13 @@ require 'connection.php';
      // Sanitize password
      if (filter_var($passwordPreHash, FILTER_SANITIZE_STRING) === false) {
          echo("password is not valid");
-         header("index.html");
+         header("Location: index.html");
      }
 
      // Sanitize username
      if (filter_var($usernamePreEncode, FILTER_SANITIZE_STRING) === false) {
          echo("password is not valid");
-         header("index.html");
+         header("Location: index.html");
      }
 
 
