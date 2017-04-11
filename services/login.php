@@ -2,56 +2,72 @@
 session_start();
 
     //Connection to the Database
-require 'connection.php';
+require "connection.php";
 
     //Checking the Session
- if (isset ($_POST['username']) && isset ($_POST['password'])){
+ if (!empty($_POST["user"]) && !empty($_POST["password"])) {
 
-    $usernamePreEncode = $_POST['username'];
-    //$email = $_POST['email'];
-    $passwordPreHash = $_POST['password'];
+     $userPreEncode = $_POST["user"];
+     $passwordPreHash = $_POST["password"];
+     $user = "";
+     if (strpos($userPreEncode, "@") == true) {
 
-    //Encoding the Username.
-    $username = base64_encode($usernamePreEncode);
-    //Hashing the Password
-    $password = md5($passwordPreHash);
+         // Remove all illegal characters from email
+         $user = filter_var($userPreEncode, FILTER_SANITIZE_EMAIL);
+         // Validate e-mail
+         if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
+             // Email is valid ??
+         } else {
+
+             header("Location: index.html");
+         }
+
+     } else{
+         // Sanitize user
+         if (filter_var($userPreEncode, FILTER_SANITIZE_STRING) === false) {
+             echo("user is not valid");
+             header("Location: index.html");
+         } else{
+
+             //Encoding the user.
+             $user = base64_encode($userPreEncode);
+
+         }
+
+     }
+
 
      // Sanitize password
      if (filter_var($passwordPreHash, FILTER_SANITIZE_STRING) === false) {
          echo("password is not valid");
          header("Location: index.html");
      }
-
-     // Sanitize username
-     if (filter_var($usernamePreEncode, FILTER_SANITIZE_STRING) === false) {
-         echo("password is not valid");
-         header("Location: index.html");
-     }
-
-
-
+     //Hashing the Password
+     $password = md5($passwordPreHash);
 
 
 
 
      // Prepare and execute SQL statement
-    $stmt = $connection->prepare("SELECT * FROM chatter_User WHERE  password = :password && email = :username|| username = :username ");
-     //$stmt ->bindvalue(":email" , $email);
-    $stmt ->bindvalue(":username" , $username);
-    $stmt ->bindvalue (":password" , $password);
-    $stmt->execute();
-    $count = $stmt->rowCount();
-    if($count == '0'){
+     $stmt = $connection->prepare("SELECT * FROM chatter_user WHERE username = :user OR email =:user AND password = :password ");
+     $stmt->bindvalue(":email", $user);
+     $stmt->bindvalue(":user", $user);
+     $stmt->bindvalue(":password", $password);
+     $stmt->execute();
+     $count = $stmt->rowCount();
+     if ($count == 0) {
 
-        echo  'Failed';
+         echo 'Failed';
 
-    } else {
+     } else {
 
          header("Location: ../views/profile.php");
 
      }
 
 
+ } else{
+     echo "There was an error.";
  }
 
  ?>
