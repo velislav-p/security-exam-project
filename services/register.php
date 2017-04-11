@@ -1,6 +1,9 @@
 <?php
 
+<<<<<<< HEAD
 // connection to the server
+=======
+>>>>>>> origin/master
 require 'connection.php';
 
 //Check if session is set
