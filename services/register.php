@@ -1,6 +1,6 @@
 <?php
 
-require 'services/connection.php';
+require 'connection.php';
 
 //Check if session is set
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])){
