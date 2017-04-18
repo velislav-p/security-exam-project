@@ -1,7 +1,7 @@
 CREATE TABLE chatter_user (
-  ID int NOT NULL AUTO_INCREMENT,
-  Username varchar(40),
-  Email varchar(40),
+  ID varchar(36) NOT NULL,
+  Username varchar(40) UNIQUE,
+  Email varchar(40) UNIQUE,
   Password varchar(40),
   PRIMARY KEY (ID)
   )
@@ -16,4 +16,3 @@ CREATE TABLE password_recovery (
             ON DELETE CASCADE
     PRIMARY KEY (ID)
 )
-

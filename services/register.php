@@ -4,7 +4,7 @@
 require 'connection.php';
 
 //Check if session is set
-if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])){
+if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email'])){
     $usernamePreEncode = $_POST['username'];
     $email = $_POST['email'];
     $passwordPreHash = $_POST['password'];
@@ -31,13 +31,34 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
         header("../views/register.html");
     }
 
+    function getGUID(){
+        if (function_exists('com_create_guid')){
+            return com_create_guid();
+        }else{
+            mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
+            $charid = strtoupper(md5(uniqid(rand(), true)));
+            $hyphen = chr(45);// "-"
+            $uuid = chr(123)// "{"
+                .substr($charid, 0, 8).$hyphen
+                .substr($charid, 8, 4).$hyphen
+                .substr($charid,12, 4).$hyphen
+                .substr($charid,16, 4).$hyphen
+                .substr($charid,20,12)
+                .chr(125);// "}"
+            return $uuid;
+        }
+    }
+
+    $id = getGUID();
+
     // Encode username
     $username = base64_encode($usernamePreEncode);
     // Hash password
     $password = md5($passwordPreHash);
 
     // Prepare and execute sql statement
-    $stmt = $connection -> prepare("INSERT INTO chatter_user(username, password, email) VALUES(:username, :password, :email)");
+    $stmt = $connection -> prepare("INSERT INTO chatter_user(ID, username, password, email) VALUES(:id, :username, :password, :email)");
+    $stmt -> bindValue(":id",$id);
     $stmt -> bindValue(":username",$username);
     $stmt -> bindValue(":password",$password);
     $stmt -> bindValue(":email",$email);

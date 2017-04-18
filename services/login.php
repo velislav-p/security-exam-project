@@ -1,11 +1,13 @@
 <?php
-session_start();
+  session_start();
 
     //Connection to the Database
 require "connection.php";
 
     //Checking the Session
+
  if (!empty($_POST["user"]) && !empty($_POST["password"])) {
+
 
      $userPreEncode = $_POST["user"];
      $passwordPreHash = $_POST["password"];
@@ -66,8 +68,10 @@ require "connection.php";
      }
 
 
+
  } else{
      echo "There was an error.";
+
  }
 
  ?>
