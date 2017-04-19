@@ -1,7 +1,8 @@
 <?php
-
 // connection to the server
+
 require 'connection.php';
+
 
 //Check if session is set
 if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email'])){
@@ -9,17 +10,23 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
     $email = $_POST['email'];
     $passwordPreHash = $_POST['password'];
 
+    echo "1";
+
     // Sanitize password
     if (filter_var($passwordPreHash, FILTER_SANITIZE_STRING) === false) {
       echo("password is not valid");
       header("../views/register.html");
     }
 
+    echo "2";
+
     // Sanitize username
     if (filter_var($usernamePreEncode, FILTER_SANITIZE_STRING) === false) {
       echo("password is not valid");
       header("../views/register.html");
     }
+
+    echo "3";
 
     // Remove all illegal characters from email
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
@@ -30,6 +37,8 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
         echo("Email address is not valid");
         header("../views/register.html");
     }
+
+    echo "4";
 
     function getGUID(){
         if (function_exists('com_create_guid')){
@@ -49,26 +58,29 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
         }
     }
 
+    echo "5";
+
     $id = getGUID();
+
+    echo $id;
 
     // Encode username
     $username = base64_encode($usernamePreEncode);
     // Hash password
     $password = md5($passwordPreHash);
 
+    $sql = "SELECT * FROM chatter_user";
+
+    $result = $connection -> query($sql);
+    $row = $result -> fetch_assoc();
     // Prepare and execute sql statement
-    $stmt = $connection -> prepare("INSERT INTO chatter_user(ID, username, password, email) VALUES(:id, :username, :password, :email)");
-    $stmt -> bindValue(":id",$id);
-    $stmt -> bindValue(":username",$username);
-    $stmt -> bindValue(":password",$password);
-    $stmt -> bindValue(":email",$email);
-    $stmt -> execute();
+    var_dump($row);
 
     session_start();
 
     $_SESSION["username"] = $username;
 
-    header("Location: ../views/profile.php");
+    // header("Location: ../views/profile.php");
 }
 
 header("profile.php");
