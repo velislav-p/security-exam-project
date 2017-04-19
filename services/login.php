@@ -46,7 +46,7 @@ require "connection.php";
 
 
      // Prepare and execute SQL statement
-     $stmt = $connection->prepare("SELECT * FROM chatter_user WHERE username = :user OR email =:user AND password = :password ");
+     $stmt = $connection->prepare("SELECT * FROM chatter_user WHERE (username = :user OR email =:user) AND password = :password ");
      $stmt->bindvalue(":email", $user);
      $stmt->bindvalue(":user", $user);
      $stmt->bindvalue(":password", $password);

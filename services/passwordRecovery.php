@@ -1,5 +1,5 @@
 <?php
-#1A#2H#3M#4VITM
+
 require 'connection.php';
 if (!empty($_POST["token"])){
     $token= $_GET["token"];
