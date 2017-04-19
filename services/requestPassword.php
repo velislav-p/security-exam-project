@@ -2,7 +2,8 @@
 
 require ("connection.php");
 
-$email = $_GET["email"];
+$emailRaw = $_POST["email"];
+$email = filter_var($emailRaw, FILTER_SANITIZE_EMAIL);
 // Finding the user based on the email provided
 $stmt = $connection -> prepare("SELECT * FROM chatter_user WHERE email = :email");
 $stmt -> bindValue(":email", $email);

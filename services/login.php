@@ -13,7 +13,6 @@ require "connection.php";
      $passwordPreHash = $_POST["password"];
      $user = "";
      if (strpos($userPreEncode, "@") == true) {
-
          // Remove all illegal characters from email
          $user = filter_var($userPreEncode, FILTER_SANITIZE_EMAIL);
          // Validate e-mail
@@ -30,14 +29,10 @@ require "connection.php";
              echo("user is not valid");
              header("Location: index.html");
          } else{
-
              //Encoding the user.
              $user = base64_encode($userPreEncode);
-
          }
-
      }
-
 
      // Sanitize password
      if (filter_var($passwordPreHash, FILTER_SANITIZE_STRING) === false) {
