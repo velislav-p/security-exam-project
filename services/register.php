@@ -62,25 +62,25 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
 
     $id = getGUID();
 
-    echo $id;
-
     // Encode username
     $username = base64_encode($usernamePreEncode);
     // Hash password
     $password = md5($passwordPreHash);
 
-    $sql = "SELECT * FROM chatter_user";
+     $stmt = $connection->prepare("INSERT INTO chatter_user (Id, Username, Password, Email) VALUES (:id, :username, :password, :email)");
+     $stmt->bindValue(':id', $id);
+     $stmt->bindValue(':username', $username);
+     $stmt->bindValue(':password', $password);
+     $stmt->bindValue(':email', $email);
+     $stmt->execute();
 
-    $result = $connection -> query($sql);
-    $row = $result -> fetch_assoc();
-    // Prepare and execute sql statement
-    var_dump($row);
+     echo "6";
 
     session_start();
 
     $_SESSION["username"] = $username;
 
-    // header("Location: ../views/profile.php");
+    header("Location: ../views/profile.php");
 }
 
 header("profile.php");
