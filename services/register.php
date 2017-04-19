@@ -10,23 +10,17 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
     $email = $_POST['email'];
     $passwordPreHash = $_POST['password'];
 
-    echo "1";
-
     // Sanitize password
     if (filter_var($passwordPreHash, FILTER_SANITIZE_STRING) === false) {
       echo("password is not valid");
       header("../views/register.html");
     }
 
-    echo "2";
-
     // Sanitize username
     if (filter_var($usernamePreEncode, FILTER_SANITIZE_STRING) === false) {
       echo("password is not valid");
       header("../views/register.html");
     }
-
-    echo "3";
 
     // Remove all illegal characters from email
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
@@ -37,8 +31,6 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
         echo("Email address is not valid");
         header("../views/register.html");
     }
-
-    echo "4";
 
     function getGUID(){
         if (function_exists('com_create_guid')){
@@ -58,8 +50,6 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
         }
     }
 
-    echo "5";
-
     $id = getGUID();
 
     // Encode username
@@ -73,8 +63,6 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
      $stmt->bindValue(':password', $password);
      $stmt->bindValue(':email', $email);
      $stmt->execute();
-
-     echo "6";
 
     session_start();
 
