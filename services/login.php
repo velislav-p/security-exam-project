@@ -8,7 +8,6 @@ require "connection.php";
 
  if (!empty($_POST["user"]) && !empty($_POST["password"])) {
 
-
      $userPreEncode = $_POST["user"];
      $passwordPreHash = $_POST["password"];
      $user = "";
@@ -31,6 +30,7 @@ require "connection.php";
          } else{
              //Encoding the user.
              $user = base64_encode($userPreEncode);
+
          }
      }
 
@@ -41,9 +41,6 @@ require "connection.php";
      }
      //Hashing the Password
      $password = md5($passwordPreHash);
-
-
-
 
      // Prepare and execute SQL statement
      $stmt = $connection->prepare("SELECT * FROM chatter_user WHERE (username = :user OR email =:user) AND password = :password ");
@@ -58,6 +55,7 @@ require "connection.php";
 
      } else {
 
+         $_SESSION["username"] = $user;
          header("Location: ../views/profile.php");
 
      }
@@ -66,6 +64,7 @@ require "connection.php";
 
 
  } else{
+
      echo "There was an error.";
 
  }
