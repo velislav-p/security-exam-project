@@ -52,13 +52,15 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
 
     $id = getGUID();
 
+    // Encode ID
+    $encodedId = base64_encode($id);
     // Encode username
     $username = base64_encode($usernamePreEncode);
     // Hash password
     $password = md5($passwordPreHash);
 
      $stmt = $connection->prepare("INSERT INTO chatter_user (Id, Username, Password, Email) VALUES (:id, :username, :password, :email)");
-     $stmt->bindValue(':id', $id);
+     $stmt->bindValue(':id', $encodedId);
      $stmt->bindValue(':username', $username);
      $stmt->bindValue(':password', $password);
      $stmt->bindValue(':email', $email);
