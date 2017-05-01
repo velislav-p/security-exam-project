@@ -53,7 +53,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
     $id = getGUID();
 
     // Encode ID
-    $encodedId = base64_encode($id);
+    $encodedId = md5($id);
     // Encode username
     $username = base64_encode($usernamePreEncode);
     // Hash password
