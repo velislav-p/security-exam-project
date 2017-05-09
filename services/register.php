@@ -6,7 +6,7 @@ require 'connection.php';
 
 //Check if session is set
 if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email'])){
-    $usernamePreEncode = $_POST['username'];
+    $username = $_POST['username'];
     $email = $_POST['email'];
     $passwordPreHash = $_POST['password'];
 
@@ -54,8 +54,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
 
     // Encode ID
     $encodedId = md5($id);
-    // Encode username
-    $username = base64_encode($usernamePreEncode);
+
     // Hash password
     $password = md5($passwordPreHash);
 

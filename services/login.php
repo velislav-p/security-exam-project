@@ -8,7 +8,7 @@ require "connection.php";
 
  if (!empty($_POST["user"]) && !empty($_POST["password"])) {
 
-     $userPreEncode = $_POST["user"];
+     $username = $_POST["user"];
      $passwordPreHash = $_POST["password"];
      $user = "";
      if (strpos($userPreEncode, "@") == true) {
@@ -28,8 +28,7 @@ require "connection.php";
              echo("user is not valid");
              header("Location: index.html");
          } else{
-             //Encoding the user.
-             $user = base64_encode($userPreEncode);
+             //Code continues
 
          }
      }
