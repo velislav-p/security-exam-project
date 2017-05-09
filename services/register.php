@@ -17,7 +17,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
     }
 
     // Sanitize username
-    if (filter_var($usernamePreEncode, FILTER_SANITIZE_STRING) === false) {
+    if (filter_var($username, FILTER_SANITIZE_STRING) === false) {
       echo("password is not valid");
       header("../views/register.html");
     }
@@ -58,7 +58,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
     // Hash password
     $password = md5($passwordPreHash);
 
-     $stmt = $connection->prepare("INSERT INTO chatter_user (Id, Username, Password, Email) VALUES (:id, :username, :password, :email)");
+     $stmt = $connection->prepare("INSERT INTO chatter_user (ID, Username, Password, Email) VALUES (:id, :username, :password, :email)");
      $stmt->bindValue(':id', $encodedId);
      $stmt->bindValue(':username', $username);
      $stmt->bindValue(':password', $password);

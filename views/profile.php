@@ -29,22 +29,44 @@
   </head>
   <body>
 
-  <div>
-      <img src="profile" alt="$username" height="200" width="200" class="profilePicture">
-  </div>
+  <!-- Current user profile -->
+  <div class="" id="wdw-current-User-area">
+    <div>
+        <img src="profile" alt="$username" height="200" width="200" class="profilePicture">
+    </div>
 
-    <div class="wdw-profile-form form-group">
-      <h4>Welcome to Chatter <?php echo $username ?></h4>
-      <a type="button" class="btn btn-warning" name="button">Start a new room</a>
-      <a type="button" class="btn btn-warning" name="button">Change your profile</a>
-      <a type="button" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
+      <div class="wdw-profile-form form-group">
+        <h4>Welcome to Chatter <?php echo $username ?></h4>
+        <a type="button" class="btn btn-warning" name="button">Start a new room</a>
+        <a type="button" class="btn btn-warning" name="button">Change your profile</a>
+        <a type="button" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
+      </div>
+      <div class="form-group">
+          <form class="input-form" action="../services/ChangeProfilePicture.php" method="post" enctype="multipart/form-data">
+              <input type="file" name="FileToUpload" id="FileToUpload" class="btn btn-warning">
+              <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
+          </form>
+      </div>
+
+  </div>
+  <!-- Wall area -->
+  <div class="" id="wdw-Wall-area">
+    <div id="wall">
+
     </div>
     <div class="form-group">
-        <form class="input-form" action="../services/ChangeProfilePicture.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="FileToUpload" id="FileToUpload" class="btn btn-warning">
+        <form class="input-form" action="xXx" method="post" enctype="multipart/form-data">
+            <input type="file" name="FileToUpload" id="messageSubmit" class="form-control">
             <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
         </form>
     </div>
+  </div>
+  <!-- Visiter area -->
+  <div class="" id="wdw-Visiter-area">
+    <div>
+        <img src="profile" alt="$username" height="200" width="200" class="profilePicture">
+    </div>
+  </div>
 
   </body>
 </html>
