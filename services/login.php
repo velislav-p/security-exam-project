@@ -57,11 +57,7 @@ require "connection.php";
 
          $_SESSION["username"] = $user;
          header("Location: ../views/profile.php");
-
      }
-
-
-
 
  } else{
 
