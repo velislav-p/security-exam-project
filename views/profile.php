@@ -4,12 +4,12 @@
 
   if(!empty($_SESSION['user']))  {
 
-    $username = $_SESSION['user'];
+    $user = $_SESSION['user'];
 
   }else{
     session_destroy();
 
-    // header("Location: ../index.html");
+     header("Location: ../index.html");
   }
 
 ?>
@@ -32,17 +32,17 @@
   <!-- Current user profile -->
   <div class="col" id="wdw-current-user-area">
     <div>
-        <img src="profile" alt="$username" height="200" width="200" class="profilePicture">
+        <img src="profile" alt="userImg" height="200" width="200" class="profilePicture">
     </div>
 
       <div class="wdw-profile-form form-group">
-        <h4>Welcome to Chatter <?php echo $username ?></h4>
+        <h4>Welcome to Chatter <?php echo $user->username ?></h4>
         <a type="button" id="description-btn" class="btn btn-warning" name="button">Add a description</a>
         <a type="button" id="logout-btn" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
       </div>
       <div class="form-group">
           <form class="input-form" id="file-input-formgroup" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="img" value="">
+            <input type="file" name="image" value="">
             <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
           </form>
       </div>
