@@ -67,7 +67,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
 
     session_start();
 
-    $newUser = stdClass();
+    $newUser = new stdClass();
 
     $newUser->username = $username;
     $newUser->id = $endoded;
