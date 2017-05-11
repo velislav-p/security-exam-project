@@ -5,6 +5,7 @@
   if(!empty($_SESSION['user']))  {
 
     $user = $_SESSION['user'];
+    $name = $user->username;
 
   }else{
     session_destroy();
@@ -36,7 +37,7 @@
     </div>
 
       <div class="wdw-profile-form form-group">
-        <h4>Welcome to Chatter <?php echo $user->username ?></h4>
+        <h4>Welcome to Chatter <?php echo $name ?></h4>
         <a type="button" id="description-btn" class="btn btn-warning" name="button">Add a description</a>
         <a type="button" id="logout-btn" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
       </div>
