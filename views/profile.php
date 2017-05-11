@@ -1,10 +1,10 @@
 <?php
   session_start();
-  // error_reporting(0);
+  error_reporting(0);
 
-  if(!empty($_SESSION['username']))  {
+  if(!empty($_SESSION['user']))  {
 
-    $username = base64_decode($_SESSION['username']);
+    $username = $_SESSION['user'];
 
   }else{
     session_destroy();
@@ -41,7 +41,7 @@
         <a type="button" id="logout-btn" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
       </div>
       <div class="form-group">
-          <form class="input-form" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
+          <form class="input-form" id="file-input-formgroup" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
             <input type="file" name="profilePicture" value="">
             <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
           </form>
@@ -53,9 +53,9 @@
     <div id="wall">
 
     </div>
-    <div class="form-group">
+    <div class="form-group" id="input-send-message-form">
         <form class="input-form" action="sendtext.php" method="post" enctype="multipart/form-data">
-            <input type="text" id="messageSubmit" class="form-control">
+            <input type="text" id="messageSubmit" class="form-control" placeholder="Send a message">
             <input type="submit" value="Write test" name="submit" class="btn btn-warning">
         </form>
     </div>
