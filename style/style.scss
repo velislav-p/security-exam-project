@@ -35,7 +35,25 @@ label {
 }
 a {
   display:inline;
-  margin-top: 8px; 
+  margin-top: 8px;
+}
+
+#wdw-Visiter-area {
+  justify-content: flex-end;
+}
+
+.col {
+  width: 33.33%;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+#wall {
+  height: 80%;
+  background-color: white;
+  width: 100%;
 }
 
 chatWnd{

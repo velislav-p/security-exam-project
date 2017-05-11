@@ -30,41 +30,44 @@
   <body>
 
   <!-- Current user profile -->
-  <div class="" id="wdw-current-User-area">
+  <div class="col" id="wdw-current-User-area">
     <div>
         <img src="profile" alt="$username" height="200" width="200" class="profilePicture">
     </div>
 
       <div class="wdw-profile-form form-group">
         <h4>Welcome to Chatter <?php echo $username ?></h4>
-        <a type="button" class="btn btn-warning" name="button">Start a new room</a>
-        <a type="button" class="btn btn-warning" name="button">Change your profile</a>
-        <a type="button" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
+        <a type="button" id="description-btn" class="btn btn-warning" name="button">Add a description</a>
+        <a type="button" id="logout-btn" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
       </div>
       <div class="form-group">
           <form class="input-form" action="../services/ChangeProfilePicture.php" method="post" enctype="multipart/form-data">
-              <input type="file" name="FileToUpload" id="FileToUpload" class="btn btn-warning">
-              <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
+            <input type="file" name="" value="">
+            <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
           </form>
       </div>
 
   </div>
   <!-- Wall area -->
-  <div class="" id="wdw-Wall-area">
+  <div class="col" id="wdw-Wall-area">
     <div id="wall">
 
     </div>
     <div class="form-group">
         <form class="input-form" action="xXx" method="post" enctype="multipart/form-data">
-            <input type="file" name="FileToUpload" id="messageSubmit" class="form-control">
-            <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
+            <input type="text" id="messageSubmit" class="form-control">
+            <input type="submit" value="Write test" name="submit" class="btn btn-warning">
         </form>
     </div>
   </div>
   <!-- Visiter area -->
-  <div class="" id="wdw-Visiter-area">
-    <div>
-        <img src="profile" alt="$username" height="200" width="200" class="profilePicture">
+  <div class="col" id="wdw-Visiter-area">
+    <div class="form-group">
+      <input type="text" id="messageSubmit" class="form-control" placeholder="go somewhere else">
+      <button type="button" id="btn-change-room" class="btn btn-warning" name="button">GO!</button>
+    </div>
+    <div id="wdw-visitor-img">
+        <img src="profile" alt="visitor" height="200" width="200" class="profilePicture">
     </div>
   </div>
 
