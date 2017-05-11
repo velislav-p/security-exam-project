@@ -38,13 +38,21 @@ a {
   margin-top: 8px;
 }
 
-#wdw-Visiter-area {
+#wdw-visiter-area {
   justify-content: flex-end;
+}
+
+#wdw-wall-area {
+  align-items: center;
+}
+
+#wdw-current-user-area {
+  padding-left: 10px;
+  padding-top: 10px;
 }
 
 .col {
   width: 33.33%;
-  align-items: center;
   display: flex;
   height: 100%;
   flex-direction: column;

@@ -30,7 +30,7 @@
   <body>
 
   <!-- Current user profile -->
-  <div class="col" id="wdw-current-User-area">
+  <div class="col" id="wdw-current-user-area">
     <div>
         <img src="profile" alt="$username" height="200" width="200" class="profilePicture">
     </div>
@@ -41,27 +41,27 @@
         <a type="button" id="logout-btn" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
       </div>
       <div class="form-group">
-          <form class="input-form" action="../services/ChangeProfilePicture.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="" value="">
+          <form class="input-form" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="profilePicture" value="">
             <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
           </form>
       </div>
 
   </div>
   <!-- Wall area -->
-  <div class="col" id="wdw-Wall-area">
+  <div class="col" id="wdw-wall-area">
     <div id="wall">
 
     </div>
     <div class="form-group">
-        <form class="input-form" action="xXx" method="post" enctype="multipart/form-data">
+        <form class="input-form" action="sendtext.php" method="post" enctype="multipart/form-data">
             <input type="text" id="messageSubmit" class="form-control">
             <input type="submit" value="Write test" name="submit" class="btn btn-warning">
         </form>
     </div>
   </div>
   <!-- Visiter area -->
-  <div class="col" id="wdw-Visiter-area">
+  <div class="col" id="wdw-visiter-area">
     <div class="form-group">
       <input type="text" id="messageSubmit" class="form-control" placeholder="go somewhere else">
       <button type="button" id="btn-change-room" class="btn btn-warning" name="button">GO!</button>

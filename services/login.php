@@ -11,9 +11,9 @@ require "connection.php";
      $username = $_POST["user"];
      $passwordPreHash = $_POST["password"];
      $user = "";
-     if (strpos($userPreEncode, "@") == true) {
+     if (strpos($username, "@") == true) {
          // Remove all illegal characters from email
-         $user = filter_var($userPreEncode, FILTER_SANITIZE_EMAIL);
+         $user = filter_var($username, FILTER_SANITIZE_EMAIL);
          // Validate e-mail
          if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
              // Email is valid ??
@@ -24,7 +24,7 @@ require "connection.php";
 
      } else{
          // Sanitize user
-         if (filter_var($userPreEncode, FILTER_SANITIZE_STRING) === false) {
+         if (filter_var($username, FILTER_SANITIZE_STRING) === false) {
              echo("user is not valid");
              header("Location: index.html");
          } else{
