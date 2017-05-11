@@ -42,7 +42,7 @@
       </div>
       <div class="form-group">
           <form class="input-form" id="file-input-formgroup" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="profilePicture" value="">
+            <input type="file" name="img" value="">
             <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
           </form>
       </div>

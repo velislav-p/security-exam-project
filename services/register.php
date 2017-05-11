@@ -67,7 +67,12 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
 
     session_start();
 
-    $_SESSION["user"] = $username;
+    $newUser = stdClass();
+
+    $newUser->username = $username;
+    $newUser->id = $endoded;
+
+    $_SESSION["user"] = $newUser;
 
     header("Location: ../views/profile.php");
 }
