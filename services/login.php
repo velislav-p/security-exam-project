@@ -16,7 +16,7 @@ require "connection.php";
          $user = filter_var($username, FILTER_SANITIZE_EMAIL);
          // Validate e-mail
          if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
-             // Email is valid ??
+             $email = $_POST["user"];
          } else {
 
              header("Location: index.html");
@@ -42,11 +42,12 @@ require "connection.php";
      $password = md5($passwordPreHash);
 
      // Prepare and execute SQL statement
-     $stmt = $connection->prepare("SELECT * FROM chatter_user WHERE (username = :user OR email =:user) AND password = :password ");
-     $stmt->bindvalue(":email", $user);
-     $stmt->bindvalue(":user", $user);
+     $stmt = $connection->prepare("SELECT * FROM chatter_user WHERE (Username = :user OR Email = :user) AND Password = :password");
+     $stmt->bindvalue(":email", $email);
+     $stmt->bindvalue(":user", $username);
      $stmt->bindvalue(":password", $password);
      $stmt->execute();
+     $row = $stmt->fetch(PDO::FETCH_ASSOC);
      $count = $stmt->rowCount();
      if ($count == 0) {
 
@@ -54,8 +55,18 @@ require "connection.php";
 
      } else {
 
-         $_SESSION["username"] = $user;
-         header("Location: ../views/profile.php");
+       $newUser = new stdClass();
+
+       $newUser->username = $row["Username"];
+       $newUser->email = $row["Email"];
+       $newUser->id = $row["Id"];
+       $newUser->profilePicture = $row["ProfilePicture"];
+       $newUser->description = $row["ProfileDescription"];
+
+       $_SESSION["user"] = $newUser;
+
+       header("Location: ../views/profile.php");
+
      }
 
  } else{

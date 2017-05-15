@@ -1,7 +1,7 @@
 <?php
 // connection to the server
 
-require 'connection.php';
+require 'connection2.php';
 
 
 //Check if session is set

@@ -8,11 +8,14 @@ body {
   align-items: center; }
 
 .form-group {
-  width: 200px; }
+  width: 400px; }
 
 .form-control {
   margin-top: 8px;
   width: 100%; }
+
+#description-input-form {
+  align-items: left; }
 
 .btn {
   margin-top: 8px; }
@@ -22,11 +25,54 @@ body {
   flex-direction: column;
   align-items: center; }
 
+#file-input-formgroup {
+  align-items: left; }
+
 label {
   display: inline; }
 
 a {
   display: inline;
   margin-top: 8px; }
+
+#wdw-visiter-area {
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-right: 10px;
+  margin-bottom: 10px; }
+
+#wdw-wall-area {
+  align-items: center; }
+
+#wdw-current-user-area {
+  padding-left: 10px;
+  padding-top: 10px; }
+
+.col {
+  width: 33.33%;
+  display: flex;
+  height: 100%;
+  flex-direction: column; }
+
+#wall {
+  height: 80%;
+  background-color: white;
+  width: 100%;
+  margin: 10px;
+  border-radius: 25px; }
+
+#input-send-message-form {
+  width: 100%; }
+
+chatWnd {
+  text-align: left;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  padding: 10px;
+  background: #fff;
+  height: 270px;
+  width: 430px;
+  border: 1px solid #ACD8F0;
+  overflow: auto; }
 
 /*# sourceMappingURL=style.css.map */

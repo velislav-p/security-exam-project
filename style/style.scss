@@ -14,11 +14,15 @@ body {
 }
 .form-group
 {
-  width:200px;
+  width: 400px;
 }
 .form-control {
   margin-top: 8px;
   width: 100%;
+}
+
+#description-input-form {
+  align-items: left;
 }
 
 .btn {

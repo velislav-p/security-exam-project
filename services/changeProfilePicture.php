@@ -1,14 +1,29 @@
 <?php
-session_start();
 require 'connection.php';
-$user = $_POST["user"];
-$pic = $_POST["image"];
-
+session_start();
 $filename=basename($_FILES["image"]["name"]);
-$target="images/$filename";
-move_uploaded_file($_FILES["image"]["tmp_name"],$target);
+$user = $_SESSION["user"];
+$userId = $user->id;
+$userName = $user->username;
+$userEmail = $user->email;
 
-$stmt = $connection -> prepare("UPDATE chatter_user SET ProfilePicture=:pic WHERE Id=:id");
-$stmt -> bindValue(":pic",$pic);
-$stmt -> bindValue(":id",$user);
-$stmt->execute();
+
+$user->profilePicture = $filename;
+$_SESSION["user"] = $user;
+
+$target="../images/$filename";
+$moved = move_uploaded_file($_FILES["image"]["tmp_name"],$target);
+
+if( $moved ) {
+    $stmt = $connection -> prepare("UPDATE chatter_user SET ProfilePicture=:pic WHERE Id=:id");
+    $stmt -> bindValue(":pic",$filename);
+    $stmt -> bindValue(":id",$userId);
+    $stmt->execute();
+    header("Location: ../views/profile.php");
+} else {
+    echo "File NOT uploaded. Please try with a smaller file";
+}
+
+
+
+
