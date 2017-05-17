@@ -1,5 +1,6 @@
 <?php
-    require 'connection.php';
+require "../protected/connection.php";
+require "../protected/functions.php";
     if (isset($_POST["token"]) && !empty($_POST["token"])) {
         $token = $_POST["token"];
 

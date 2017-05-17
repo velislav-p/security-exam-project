@@ -4,7 +4,8 @@ $referer = $_SERVER["HTTP_REFERER"];
 if ($referer !== "https://188.226.141.57/views/profile.php"){
     exit("unknown request origin");
 } else {
-    require 'connection.php';
+    require "../protected/connection.php";
+    require "../protected/functions.php";
     session_start();
     $filename=basename($_FILES["image"]["name"]);
 

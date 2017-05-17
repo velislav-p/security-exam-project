@@ -6,7 +6,8 @@ if ($referer !== "https://188.226.141.57/"){
     session_start();
 
     //Connection to the Database
-    require "connection.php";
+    require "../protected/connection.php";
+    require "../protected/functions.php";
 
     //Checking the Session
 

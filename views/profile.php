@@ -1,5 +1,6 @@
 <?php
-require '../services/connection.php';
+require "../protected/connection.php";
+require "../protected/functions.php";
 session_start();
 $user = $_SESSION['user'];
 // error_reporting(0);

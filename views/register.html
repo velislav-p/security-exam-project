@@ -18,11 +18,12 @@
 
     <div class="wdw-register-form form-group">
 
-        <form class="input-form" action="../services/register.php" method="post">
+        <form id="registrationForm" class="input-form" action="../services/register.php" method="post">
             <h2>Please Register</h2>
+            <div id="error-msg"></div>
             <input type="text" class="form-control" name="username" placeholder="Username">
-            <input type="password" class="form-control" name="password" placeholder="Password">
-            <input type="text" class="form-control" name="email" placeholder="Email">
+            <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+            <input type="email" class="form-control" name="email" placeholder="Email">
             <button type="submit" class="btn btn-warning" name="button">Register!</button>
             <div class="g-recaptcha" data-sitekey="6LeKjiAUAAAAAIqSwoUeKpKw9SzeHSBhfKk6SPCh" data-theme="dark"></div>
         </form>
@@ -32,6 +33,33 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script>
+
+        $("#registrationForm").submit(function(){
+            var password = $("#password").val();
+            var status = checkPwd(password);
+            if (status != "ok"){
+                $("#error-msg").append("<p>Choose a password that is at least 6 characters long and includes a number and a capital letter</p>")
+                return false;
+            }
+        });
+
+        function checkPwd(str){
+            if (str.length < 6) {
+                return("too_short");
+            } else if (str.length > 50) {
+                return("too_long");
+            } else if (str.search(/\d/) == -1) {
+                return("no_num");
+            } else if (str.search(/[a-zA-Z]/) == -1) {
+                return("no_letter");
+            } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
+                return("bad_char");
+            }
+            return("ok");
+        }
+
+    </script>
 </body>
 
 </html>

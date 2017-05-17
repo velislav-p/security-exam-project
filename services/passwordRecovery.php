@@ -1,6 +1,7 @@
 <?php
 
-require 'connection.php';
+require "../protected/connection.php";
+require "../protected/functions.php";
 if (isset($_GET["token"]) && !empty($_GET["token"])){
     $token= $_GET["token"];
     $token_decoded = base64_decode($token);

@@ -5,8 +5,8 @@ if ($referer !== "https://188.226.141.57/views/profile.php"){
     exit("unknown request origin");
 } else {
     session_start();
-    require("connection.php");
-    require("functions.php");
+    require "../protected/connection.php";
+    require "../protected/functions.php";
 
     $message = $_POST["message"];
     $user = $_SESSION["user"];
