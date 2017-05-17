@@ -48,7 +48,7 @@ if (isset($_GET["token"]) && !empty($_GET["token"])){
     
     <div id='wdw-password-recovery' class='form-group'>
     <h1>Password recovery</h1>
-        <form method='post' class='input-form' action='../services/setNewPassword.php'>
+        <form method='post' class='input-form' action='setNewPassword.php'>
             <input type='text' class='form-control' name='email' placeholder='email'>
             <input type='password' class='form-control' name='password' placeholder='password'>
             <input type='password' class='form-control' name='passwordConfirm' placeholder='confirm password'>

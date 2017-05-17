@@ -1,8 +1,8 @@
 
 <?php
 $referer = $_SERVER["HTTP_REFERER"];
-if ($referer !== "http://188.226.141.57/views/profile.php"){
-
+if ($referer !== "https://188.226.141.57/views/profile.php"){
+    exit("unknown request origin");
 } else {
     require 'connection.php';
     session_start();
