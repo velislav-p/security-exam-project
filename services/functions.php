@@ -1,4 +1,10 @@
 <?php
+//$referer = $_SERVER["HTTP_REFERER"];
+//if ($referer === "http://188.226.141.57/Group03/views/emailSent.php"){
+//echo "referers match";
+//} else {
+//    echo "referes do NOT match";
+//}
 function getGUID(){
     if (function_exists('com_create_guid')){
         return com_create_guid();

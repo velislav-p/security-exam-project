@@ -1,7 +1,7 @@
 <?php
 // connection to the server
 
-require 'connection2.php';
+require 'connection.php';
 
 
 //Check if session is set
@@ -52,31 +52,46 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
 
     $id = getGUID();
 
+
+
     // Encode ID
     $encodedId = md5($id);
 
     // Hash password
     $password = md5($passwordPreHash);
 
-     $stmt = $connection->prepare("INSERT INTO chatter_user (ID, Username, Password, Email) VALUES (:id, :username, :password, :email)");
-     $stmt->bindValue(':id', $encodedId);
-     $stmt->bindValue(':username', $username);
-     $stmt->bindValue(':password', $password);
-     $stmt->bindValue(':email', $email);
-     $stmt->execute();
+    $emailStatement = $connection->prepare("SELECT * FROM chatter_user WHERE Email = :email OR Username = :username");
+    $emailStatement->bindValue( ':email', $email);
+    $emailStatement->bindValue( ':username', $username);
+    $emailStatement->execute();
+    $row = $emailStatement->fetch(PDO::FETCH_ASSOC);
+    $count = $emailStatement->rowCount();
+    if ($count == 0) {
+        $stmt = $connection->prepare("INSERT INTO chatter_user (ID, Username, Password, Email) VALUES (:id, :username, :password, :email)");
+        $stmt->bindValue(':id', $encodedId);
+        $stmt->bindValue(':username', $username);
+        $stmt->bindValue(':password', $password);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
 
-    session_start();
+        session_start();
 
-    $newUser = new stdClass();
+        $newUser = new stdClass();
 
-    $newUser->username = $username;
-    $newUser->id = $endoded;
+        $newUser->username = $username;
+        $newUser->id = $encodedId;
 
-    $_SESSION["user"] = $newUser;
+        $_SESSION["user"] = $newUser;
 
-    header("Location: ../views/profile.php");
+        header("Location: ../views/profile.php");
+    }else{
+        $_SESSION["invalid"] = "Sorry, the user already exists";
+        header("Location: ../views/register.html");
+    }
+
+
+}else {
+   header("Location: ../views/genericpffttr.html");
 }
-
-header("profile.php");
 
 ?>

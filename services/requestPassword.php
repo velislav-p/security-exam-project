@@ -31,7 +31,7 @@ if ($row_count>0)
     $link = "http://188.226.141.57/Group03/services/passwordRecovery.php?token=".$encoded_string_base64;
 
     $to      = $email;
-    $subject = "testing password recovery";
+    $subject = "Your password recovery";
     $message = 'Please follow the link to continue with password recovery.'."\r\n" .
         $link;
     $headers = 'From: pwrecovery@Group03.localdomain' . "\r\n" .

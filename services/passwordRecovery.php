@@ -62,14 +62,6 @@ if (isset($_GET["token"]) && !empty($_GET["token"])){
     }
 
 }else {
-    header("Location: ../index.html");
+    header("Location: ../views/genericpffttr.html");
 
 }
-
-//$stmt = $connection -> prepare("SELECT * FROM chatter_user WHERE email = :email");
-//$stmt -> bindValue(":email", $email);
-//$stmt->execute();
-//$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
-//header("Location: http://localhost/SecurityProject/security-exam-project/views/passwordChanged.php");

@@ -7,6 +7,8 @@ if (!empty($_POST['description']))
   $desc = $_POST['description'];
   $user = $_SESSION['user'];
 
+    $desc = htmlentities($desc);
+
   $user->description = $desc;
   $UserId = $user->id;
 
@@ -20,5 +22,5 @@ if (!empty($_POST['description']))
 
   header("Location: ../views/profile.php");
 }else{
-  echo "sorry bob";
+    header("Location: ../views/profile.php");
 }

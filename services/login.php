@@ -25,17 +25,15 @@ require "connection.php";
      } else{
          // Sanitize user
          if (filter_var($username, FILTER_SANITIZE_STRING) === false) {
-             echo("user is not valid");
-             header("Location: index.html");
-         } else{
-             //Code continues
 
+             header("Location: index.html");
          }
+
      }
 
      // Sanitize password
      if (filter_var($passwordPreHash, FILTER_SANITIZE_STRING) === false) {
-         echo("password is not valid");
+
          header("Location: index.html");
      }
      //Hashing the Password
@@ -71,7 +69,7 @@ require "connection.php";
 
  } else{
 
-     echo "There was an error.";
+     header("Location: ../index.html " );
 
  }
 

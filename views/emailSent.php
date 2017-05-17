@@ -6,5 +6,6 @@
 </head>
 <body>
 <h1>An email with instructions has been sent to the provided address.</h1>
+
 </body>
 </html>

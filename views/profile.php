@@ -1,11 +1,15 @@
 <?php
-  require '../services/connection.php';
-  session_start();
-  $user = $_SESSION['user'];
-  // error_reporting(0);
-  if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
+require '../services/connection.php';
+session_start();
+$user = $_SESSION['user'];
+// error_reporting(0);
+$profileId = "";
+if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
 
     $hostUsername = $_POST['visit-user-id'];
+
+    $hostUsername = filter_var($hostUsername, FILTER_SANITIZE_STRING);
+
 
     $stmt = $connection->prepare("SELECT * FROM chatter_user WHERE Username = :hostUser");
     $stmt->bindvalue(":hostUser", $hostUsername);
@@ -14,53 +18,69 @@
     $count = $stmt->rowCount();
     if ($count == 0) {
 
-      $sorry =  "sorry, no friend was found";
+        $sorry =  "Sorry, no friend was found";
 
-      $user = $_SESSION['user'];
-      $name = $user->username;
-      $description = $user->description;
-      $image = $user->profilePicture;
+        $user = $_SESSION['user'];
+        $name = $user->username;
+        $description = $user->description;
+        $image = $user->profilePicture;
+        $profileId = $user->Id;
 
     }else {
 
-      $host = new stdClass();
+        $host = new stdClass();
 
-      $host->username = $row["Username"];
-      $host->profilePicture = $row["ProfilePicture"];
-      $host->description = $row["ProfileDescription"];
-      $host->id = $row["Id"];
+        $host->username = $row["Username"];
+        $host->profilePicture = $row["ProfilePicture"];
+        $host->description = $row["ProfileDescription"];
+        $host->id = $row["Id"];
 
-      $user->host = $host;
+        $user->host = $host;
 
-      $name = $user->host->username;
-      $description = $user->host->description;
-      $image = $user->host->profilePicture;
+        $name = $user->host->username;
+        $description = $user->host->description;
+        $image = $user->host->profilePicture;
 
-      $visitorName = $user->username;
-      $visitorDescription = $user->description;
-      $visitorImage = $user->profilePicture;
+        $visitorName = $user->username;
+        $visitorDescription = $user->description;
+        $visitorImage = "<img src='../images/".$user->profilePicture."' alt='visitor' height='400' width='400' class='profilePicture'>";
+
+        $profileId = $host->id;
     }
 
-  }else if(!empty($_SESSION['user'])){
+}else if(!empty($_SESSION['user'])){
 
     $user = $_SESSION['user'];
     $name = $user->username;
     $description = $user->description;
     $image = $user->profilePicture;
+    $profileId = $user->id;
 
-  }else {
+
+}else {
 
     //session_destroy();
 
     //header("Location: ../index.html");
 
-  }
+}
+
+$stmt = $connection->prepare("SELECT * FROM message, chatter_user WHERE message.receiver_id = :hostUser AND chatter_user.Id = message.sender_id");
+$stmt->bindvalue(":hostUser", $profileId);
+$stmt->execute();
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$count = $stmt->rowCount();
+if ($count == 0) {
+    $messageSorry = "This wall is still empty";
+}else{
+    $allMessages = $rows;
+}
 
 ?>
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Welcome to your profile!</title>
 
@@ -70,57 +90,88 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <!-- StyleSheet -->
     <link rel="stylesheet" href="../style/style.css">
-  </head>
-  <body>
+</head>
+<body>
 
-  <!-- Current user profile -->
-  <div class="col" id="wdw-current-user-area">
+<!-- Current user profile -->
+<div class="col" id="wdw-current-user-area">
     <div>
         <img src="../images/<?php echo $image ?>" alt="userImg" height="400" width="400" class="profilePicture">
     </div>
 
-      <div class="wdw-profile-form form-group">
+    <div class="wdw-profile-form form-group">
         <h4>Welcome to Chatter <?php echo $name ?></h4>
         <h3><?php echo $description ?></h3>
         <form class="input-form" id="description-input-form" action="../services/description.php" method="post">
-          <input type="text" class="form-control" name="description" placeholder="Add a new description">
-          <button type="submit" id="description-btn" class="btn btn-warning" name="button">Add description</button>
+            <input type="text" class="form-control" name="description" placeholder="Add a new description">
+            <button type="submit" id="description-btn" class="btn btn-warning" name="button">Add description</button>
         </form>
         <a type="button" id="logout-btn" href="../services/logout.php" class="btn btn-danger" name="button">Logout</a>
-      </div>
-      <div class="form-group">
-          <form class="input-form" id="file-input-formgroup" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
+    </div>
+    <div class="form-group">
+        <form class="input-form" id="file-input-formgroup" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
             <input type="file" name="image" value="">
             <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
-          </form>
-      </div>
+        </form>
+    </div>
+</div>
 
-  </div>
-  <!-- Wall area -->
-  <div class="col" id="wdw-wall-area">
+<!-- Wall area -->
+<div class="col" id="wdw-wall-area">
     <div id="wall">
+        <?php echo $messageSorry ?>
+        <?php
+        foreach($allMessages as $singleMessage => $items){
+            echo "<div><p class='wallMessage'>".$items["Username"]." says: </p><p class='wallMessage'>" .$items["content"]."</p></div>";
+        }
+        ?>
 
     </div>
     <div class="form-group" id="input-send-message-form">
-        <form class="input-form" action="../services/sendMessage.php" method="post" enctype="multipart/form-data">
-            <input type="text" id="message" name="message" class="form-control" placeholder="Send a message">
-            <input type="submit" value="Write test" name="submit" class="btn btn-warning">
+        <form id="messageForm" class="input-form" action="../services/sendMessage.php" method="post" enctype="multipart/form-data">
+            <input type="text" id="message" name="message" class="form-control" placeholder="Send a message" required>
+            <input type="submit" value="Send message" name="submit" class="btn btn-warning">
         </form>
     </div>
-  </div>
-  <!-- Visiter area -->
-  <div class="col" id="wdw-visiter-area">
+</div>
+
+<!-- Visiter area -->
+<div class="col" id="wdw-visiter-area">
     <h5><?php echo $sorry  ?></h5>
     <div class="form-group">
-      <form class="input-form" action="profile.php" method="post">
-        <input type="text" name="visit-user-id" id="visit-Input-field" class="form-control" placeholder="go somewhere else">
-        <input type="submit" value="GO!" id="btn-change-room" class="btn btn-warning" name="button">
-      </form>
+        <form class="input-form" id="theGoForm" action="profile.php" method="post">
+            <input type="text" name="visit-user-id" id="visit-Input-field" class="form-control" placeholder="go somewhere else">
+            <input type="submit" value="GO!" id="btn-change-room" class="btn btn-warning" name="button">
+        </form>
     </div>
+    <h3><?php echo $visitorDescription ?></h3>
     <div id="wdw-visitor-img">
-        <img src="../images/<?php echo $userimage ?>" alt="visitor" height="400" width="400" class="profilePicture">
+        <?php echo $visitorImage ?>
     </div>
-  </div>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script>
 
-  </body>
+    $(function () {
+        var frm = $('#messageForm');
+        frm.submit(function (ev) {
+            var message = $("#message").val();
+            $.ajax({
+                "method":"POST",
+                "url":"../services/sendMessage.php",
+                "data": {"message":message},
+                "dataType": "JSON",
+                "cache":false
+            }).done(function(jData){
+                $("#wall").append("<div><p class='wallMessage'>"+jData.user+" says:</p><p class='wallMessage'>" +jData.message+"</p></div>");
+                $("#message").val("");
+            });
+            ev.preventDefault();
+        });
+    });
+</script>
+</body>
 </html>
