@@ -24,7 +24,6 @@ if ($referer !== "https://188.226.141.57/views/profile.php"){
     $stmt->bindValue(":message", $message);
     $stmt->execute();
 
-    echo '{"user":"' . $user->username . '","message":"' . $message . '"}';
-
+    echo '{"user":"' . htmlentities($user->username) . '","message":"' . $message . '"}';
 
 }

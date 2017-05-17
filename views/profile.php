@@ -22,8 +22,9 @@ if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
         $sorry =  "Sorry, no friend was found";
 
         $user = $_SESSION['user'];
-        $name = $user->username;
-        $description = $user->description;
+
+        $name = htmlentities($user->username);
+        $description = htmlentities($user->description);
         $image = $user->profilePicture;
         $profileId = $user->Id;
 
@@ -31,9 +32,9 @@ if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
 
         $host = new stdClass();
 
-        $host->username = $row["Username"];
+        $host->username = htmlentities($row["Username"]);
         $host->profilePicture = $row["ProfilePicture"];
-        $host->description = $row["ProfileDescription"];
+        $host->description = htmlentities($row["ProfileDescription"]);
         $host->id = $row["Id"];
 
         $user->host = $host;
@@ -42,8 +43,8 @@ if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
         $description = $user->host->description;
         $image = $user->host->profilePicture;
 
-        $visitorName = $user->username;
-        $visitorDescription = $user->description;
+        $visitorName = htmlentities($user->username);
+        $visitorDescription = htmlentities($user->description);
         $visitorImage = "<img src='../images/".$user->profilePicture."' alt='visitor' height='400' width='400' class='profilePicture'>";
 
         $profileId = $host->id;
@@ -52,8 +53,8 @@ if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
 }else if(!empty($_SESSION['user'])){
 
     $user = $_SESSION['user'];
-    $name = $user->username;
-    $description = $user->description;
+    $name = htmlentities($user->username);
+    $description = htmlentities($user->description);
     $image = $user->profilePicture;
     $profileId = $user->id;
 
@@ -67,7 +68,7 @@ if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
 }
 
 $stmt = $connection->prepare("SELECT * FROM message, chatter_user WHERE message.receiver_id = :hostUser AND chatter_user.Id = message.sender_id");
-$stmt->bindvalue(":hostUser", $profileId);
+$stmt->bindValue(":hostUser", $profileId);
 $stmt->execute();
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $count = $stmt->rowCount();
@@ -84,7 +85,10 @@ if ($count == 0) {
 <head>
     <meta charset="utf-8">
     <title>Welcome to your profile!</title>
-
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Bootstrap -->
@@ -150,14 +154,10 @@ if ($count == 0) {
         <?php echo $visitorImage ?>
     </div>
 </div>
-<script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-<script>
 
-    $(function () {
-        var frm = $('#messageForm');
+<script type="text/javascript">
+
+        var frm = $("#messageForm");
         frm.submit(function (ev) {
             var message = $("#message").val();
             $.ajax({
@@ -172,7 +172,6 @@ if ($count == 0) {
             });
             ev.preventDefault();
         });
-    });
 </script>
 </body>
 </html>

@@ -21,7 +21,7 @@ if ($referer !== "https://188.226.141.57/"){
             $user = filter_var($username, FILTER_SANITIZE_EMAIL);
             // Validate e-mail
             if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
-                $email = $_POST["user"];
+                $email = $user;
             } else {
 
                 header("Location: index.html");

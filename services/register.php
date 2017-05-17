@@ -15,16 +15,10 @@ if ($referer !== "https://188.226.141.57/views/register.html"){
         $passwordPreHash = $_POST['password'];
 
         // Sanitize password
-        if (filter_var($passwordPreHash, FILTER_SANITIZE_STRING) === false) {
-            echo("password is not valid");
-            header("../views/register.html");
-        }
+        $passwordPreHash = filter_var($passwordPreHash, FILTER_SANITIZE_STRING);
 
         // Sanitize username
-        if (filter_var($username, FILTER_SANITIZE_STRING) === false) {
-            echo("password is not valid");
-            header("../views/register.html");
-        }
+        $username = htmlentities($username);
 
         // Remove all illegal characters from email
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);

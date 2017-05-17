@@ -36,6 +36,7 @@
     <script>
 
         $("#registrationForm").submit(function(){
+            $("#error-msg").empty();
             var password = $("#password").val();
             var status = checkPwd(password);
             if (status != "ok"){
