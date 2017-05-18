@@ -35,30 +35,30 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script>
 
-        $("#registrationForm").submit(function(){
-            $("#error-msg").empty();
-            var password = $("#password").val();
-            var status = checkPwd(password);
-            if (status != "ok"){
-                $("#error-msg").append("<p>Choose a password that is at least 6 characters long and includes a number and a capital letter</p>")
-                return false;
-            }
-        });
-
-        function checkPwd(str){
-            if (str.length < 6) {
-                return("too_short");
-            } else if (str.length > 50) {
-                return("too_long");
-            } else if (str.search(/\d/) == -1) {
-                return("no_num");
-            } else if (str.search(/[a-zA-Z]/) == -1) {
-                return("no_letter");
-            } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
-                return("bad_char");
-            }
-            return("ok");
-        }
+//        $("#registrationForm").submit(function(){
+//            $("#error-msg").empty();
+//            var password = $("#password").val();
+//            var status = checkPwd(password);
+//            if (status != "ok"){
+//                $("#error-msg").append("<p>Choose a password that is at least 6 characters long and includes a number and a capital letter</p>")
+//                return false;
+//            }
+//        });
+//
+//        function checkPwd(str){
+//            if (str.length < 6) {
+//                return("too_short");
+//            } else if (str.length > 50) {
+//                return("too_long");
+//            } else if (str.search(/\d/) == -1) {
+//                return("no_num");
+//            } else if (str.search(/[a-zA-Z]/) == -1) {
+//                return("no_letter");
+//            } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
+//                return("bad_char");
+//            }
+//            return("ok");
+//        }
 
     </script>
 </body>
