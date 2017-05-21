@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
     <!-- StyleSheet -->
     <link rel="stylesheet" href="../style/style.css" >
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 
 <body>
@@ -21,46 +23,72 @@
         <form id="registrationForm" class="input-form" action="../services/register.php" method="post">
             <h2>Please Register</h2>
             <div id="error-msg"></div>
-            <input type="text" class="form-control" name="username" placeholder="Username">
+            <input id="username" type="text" class="form-control" name="username" placeholder="Username">
             <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-            <input type="email" class="form-control" name="email" placeholder="Email">
+            <input id="email" type="email" class="form-control" name="email" placeholder="Email">
             <button type="submit" class="btn btn-warning" name="button">Register!</button>
-            <div class="g-recaptcha" data-sitekey="6LeKjiAUAAAAAIqSwoUeKpKw9SzeHSBhfKk6SPCh" data-theme="dark"></div>
+            <div id="catpcha" class="g-recaptcha" data-sitekey="6LeKjiAUAAAAAIqSwoUeKpKw9SzeHSBhfKk6SPCh" data-theme="dark" data-callback="correctCaptcha"></div>
         </form>
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-//        $("#registrationForm").submit(function(){
-//            $("#error-msg").empty();
-//            var password = $("#password").val();
-//            var status = checkPwd(password);
-//            if (status != "ok"){
-//                $("#error-msg").append("<p>Choose a password that is at least 6 characters long and includes a number and a capital letter</p>")
-//                return false;
-//            }
-//        });
-//
-//        function checkPwd(str){
-//            if (str.length < 6) {
-//                return("too_short");
-//            } else if (str.length > 50) {
-//                return("too_long");
-//            } else if (str.search(/\d/) == -1) {
-//                return("no_num");
-//            } else if (str.search(/[a-zA-Z]/) == -1) {
-//                return("no_letter");
-//            } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
-//                return("bad_char");
-//            }
-//            return("ok");
-//        }
+<script>
+    var captcha;
+    var correctCaptcha = function(response) {
+        captcha = response;
+    };
 
-    </script>
+    $("#registrationForm").submit(function(ev){
+    $("#error-msg").empty();
+    var password = $("#password").val();
+    var status = checkPwd(password);
+    if (status != "ok"){
+        $("#error-msg").append("<p>Choose a password that is at least 8 characters long and includes a number and a capital letter and one of the following:!@#$%^&*()_+ </p>")
+        return false;
+    } else {
+        $("#error-msg").empty();
+        var username = $("#username").val();
+        var email = $("#email").val();
+
+        $.ajax({
+            "method": "POST",
+            "url": "../services/register.php",
+            "data": {"username": username, "password":password,"email":email, "g-recaptcha-response":captcha},
+            "dataType": "JSON",
+            "cache": false
+        }).done(function (data) {
+            $("#error-msg").append(data.message);
+            if(data.redirect){
+                window.location.href= data.redirect ;
+            }
+        });
+        ev.preventDefault();
+    }
+    });
+
+    function checkPwd(str){
+        if (str.length < 6) {
+            return("too_short");
+        } else if (str.length > 50) {
+            return("too_long");
+        } else if (str.search(/\d/) == -1) {
+            return("no_num");
+        } else if (str.search(/[a-zA-Z]/) == -1) {
+            return("no_letter");
+        } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
+            return("bad_char");
+        }
+        return("ok");
+    }
+
+
+
+
+
+</script>
 </body>
 
 </html>

@@ -26,7 +26,7 @@ if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
         $name = htmlentities($user->username);
         $description = htmlentities($user->description);
         $image = $user->profilePicture;
-        $profileId = $user->Id;
+        $profileId = $user->id;
 
     }else {
 
@@ -61,13 +61,13 @@ if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
 
 }else {
 
-    //session_destroy();
+    session_destroy();
 
-    //header("Location: ../index.html");
+    header("Location: ../index.html");
 
 }
 
-$stmt = $connection->prepare("SELECT * FROM message, chatter_user WHERE message.receiver_id = :hostUser AND chatter_user.Id = message.sender_id");
+$stmt = $connection->prepare("SELECT * FROM message, chatter_user WHERE (message.receiver_id = :hostUser OR message.sender_id = :hostUser) AND chatter_user.Id = message.sender_id");
 $stmt->bindValue(":hostUser", $profileId);
 $stmt->execute();
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -117,6 +117,12 @@ if ($count == 0) {
         <form class="input-form" id="file-input-formgroup" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
             <input type="file" name="image" value="">
             <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
+        </form>
+    </div>
+    <div class="form-group">
+        <form class="input-form" id="delete-input-formgroup" action="../services/deleteProfile.php" method="post">
+            <input type="hidden" id="hostId" name="hostId" value="<?php $user->host->id ?>">
+            <input type="submit" value="Delete user" name="submit" class="btn btn-danger">
         </form>
     </div>
 </div>

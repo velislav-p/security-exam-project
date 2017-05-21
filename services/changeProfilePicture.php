@@ -7,10 +7,14 @@ if ($referer !== "https://188.226.141.57/views/profile.php"){
     require "../protected/connection.php";
     require "../protected/functions.php";
     session_start();
-    $filename=basename($_FILES["image"]["name"]);
+    $filename=basename($_FILES["image"]["name"],'.php');
+
+
 
     //file sanitization
     $sanitizedFilename = preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $filename);
+
+
 
     $user = $_SESSION["user"];
     $userId = $user->id;
@@ -31,7 +35,7 @@ if ($referer !== "https://188.226.141.57/views/profile.php"){
         $stmt->execute();
         header("Location: ../views/profile.php");
     } else {
-        echo "File NOT uploaded. Please try with a smaller file";
+        echo $sanitizedFilename;
     }
 
 }
