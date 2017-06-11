@@ -3,6 +3,7 @@ require "../protected/connection.php";
 require "../protected/functions.php";
 session_start();
 $user = $_SESSION['user'];
+
 // error_reporting(0);
 $profileId = "";
 if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
@@ -58,13 +59,9 @@ if(!empty($_POST['visit-user-id']) && (!empty($_SESSION['user']))){
     $image = $user->profilePicture;
     $profileId = $user->id;
 
-
 }else {
-
     session_destroy();
-
-    header("Location: ../index.html");
-
+    header("Location: ../");
 }
 
 $stmt = $connection->prepare("SELECT * FROM message, chatter_user WHERE (message.receiver_id = :hostUser OR message.sender_id = :hostUser) AND chatter_user.Id = message.sender_id");
@@ -78,6 +75,21 @@ if ($count == 0) {
     $allMessages = $rows;
 }
 
+$formDeleteProfile = "";
+if($user->admin==1){
+    $idToDelete = $user->host->id;
+    $formDeleteProfile = "<div class='form-group'>
+        <form class='input-form' id='delete-input-formgroup' action='../services/deleteProfile.php' method='post'>
+            <input type='hidden' id='hostId' name='hostId' value='$idToDelete'>
+            <input type='submit' value='Delete user' name='submit' class='btn btn-danger'>
+        </form>
+    </div>";
+}
+
+//header('Content-type: image/jpg;');
+//$p = "../images/Untitled.jpg";
+//$a = file_get_contents($p);
+//echo $a;
 ?>
 
 <!DOCTYPE html>
@@ -100,8 +112,9 @@ if ($count == 0) {
 
 <!-- Current user profile -->
 <div class="col" id="wdw-current-user-area">
-    <div>
+    <div id="user-profile-picture">
         <img src="../images/<?php echo $image ?>" alt="userImg" height="400" width="400" class="profilePicture">
+
     </div>
 
     <div class="wdw-profile-form form-group">
@@ -115,16 +128,11 @@ if ($count == 0) {
     </div>
     <div class="form-group">
         <form class="input-form" id="file-input-formgroup" action="../services/changeProfilePicture.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" value="">
+            <input type="file" name="image">
             <input type="submit" value="Upload Image" name="submit" class="btn btn-warning">
         </form>
     </div>
-    <div class="form-group">
-        <form class="input-form" id="delete-input-formgroup" action="../services/deleteProfile.php" method="post">
-            <input type="hidden" id="hostId" name="hostId" value="<?php $user->host->id ?>">
-            <input type="submit" value="Delete user" name="submit" class="btn btn-danger">
-        </form>
-    </div>
+    <?php echo $formDeleteProfile ?>
 </div>
 
 <!-- Wall area -->
@@ -162,7 +170,7 @@ if ($count == 0) {
 </div>
 
 <script type="text/javascript">
-
+        var test="";
         var frm = $("#messageForm");
         frm.submit(function (ev) {
             var message = $("#message").val();

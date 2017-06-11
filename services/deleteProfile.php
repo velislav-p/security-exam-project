@@ -18,7 +18,9 @@ if ($referer !== "https://188.226.141.57/views/profile.php"){
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($row["Admin"] == 1){
-            $stmt = $connection->prepare("DELETE FROM chatter_user WHERE Id = :hostId AND Admin = 0");
+            $stmt = $connection->prepare(
+                "DELETE FROM chatter_user WHERE Id = :hostId AND Admin = 0"
+            );
             $stmt->bindvalue(":hostId", $profileToDelete);
             $stmt->execute();
             header("Location: ../views/profile.php");

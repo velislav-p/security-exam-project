@@ -30,7 +30,7 @@ if ($referer !== "https://188.226.141.57/views/register.html"){
                 // Sanitize username
                 $username = filter_var($username, FILTER_SANITIZE_STRING);
 
-                // Remove all illegal characters from email
+                // Sanitize from email
                 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
                 // Validate e-mail
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
@@ -49,14 +49,17 @@ if ($referer !== "https://188.226.141.57/views/register.html"){
                 // Hash password
                 $password = md5($passwordPreHash);
 
-                $emailStatement = $connection->prepare("SELECT * FROM chatter_user WHERE Email = :email OR Username = :username");
+                $emailStatement = $connection->prepare(
+                    "SELECT * FROM chatter_user WHERE Email = :email OR Username = :username");
                 $emailStatement->bindValue(':email', $email);
                 $emailStatement->bindValue(':username', $username);
                 $emailStatement->execute();
                 $row = $emailStatement->fetch(PDO::FETCH_ASSOC);
                 $count = $emailStatement->rowCount();
                 if ($count == 0) {
-                    $stmt = $connection->prepare("INSERT INTO chatter_user (ID, Username, Password, Email) VALUES (:id, :username, :password, :email)");
+                    $stmt = $connection->prepare(
+                        "INSERT INTO chatter_user (ID, Username, Password, Email) 
+                         VALUES (:id, :username, :password, :email)");
                     $stmt->bindValue(':id', $encodedId);
                     $stmt->bindValue(':username', $username);
                     $stmt->bindValue(':password', $password);

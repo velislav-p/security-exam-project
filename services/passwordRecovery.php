@@ -14,8 +14,6 @@ if (isset($_GET["token"]) && !empty($_GET["token"])){
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    //if there is a row found do this, else do smth else
-    //if($row.count())
     $userId = $row["Id"];
     $secretKey = $row["Password"];
     $stmt = $connection -> prepare("SELECT * FROM password_recovery WHERE user_id=:userId");
